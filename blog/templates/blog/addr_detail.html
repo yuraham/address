@@ -16,6 +16,8 @@
         <p>작성자: {{ addr.author }}</p>
         {% if user.is_authenticated %}
             <a class="btn btn-default" href="{% url 'blog:addr_edit' pk=addr.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default" href="{% url 'blog:addr_remove' pk=addr.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+            <a class="btn btn-default" href="{% url 'blog:addr_openaddr' pk=addr.pk %}">공개</a>
         {% endif %}
     </div>
 {% endblock %}

@@ -5,8 +5,9 @@ from .forms import AddressForm
 
 
 def addr_list(request):
-    addrs = Address.objects.all()
-    return render(request, 'blog/addr_list.html', {'addrs':addrs})
+    addrs = Address.objects.filter(open_addr=0)
+    no_addrs = Address.objects.filter(open_addr=1)
+    return render(request, 'blog/addr_list.html', {'addrs':addrs, 'no_addrs':no_addrs})
 
 
 def addr_detail(request, pk):
@@ -43,11 +44,13 @@ def addr_edit(request, pk):
     return render(request, 'blog/addr_edit.html', {'form':form})
 
 
+def addr_remove(request, pk):
+    addr = get_object_or_404(Address, pk=pk)
+    addr.delete()
+    return redirect('blog:addr_list')
 
-def addr_remove(request):
-    pass
 
-
-def addr_openaddr(request):
-    pass
-
+def addr_openaddr(request, pk):
+    addr = get_object_or_404(Address, pk=pk)
+    addr.openaddr()
+    return redirect('blog:addr_list')
