@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Address
 from .forms import AddressForm
+from django.contrib.auth.decorators import login_required
 
 
 def addr_list(request):
@@ -15,6 +16,7 @@ def addr_detail(request, pk):
     return render(request, 'blog/addr_detail.html', {'addr': addr})
 
 
+@login_required
 def addr_new(request):
     if request.method == "POST":
         form = AddressForm(request.POST)
@@ -29,6 +31,7 @@ def addr_new(request):
     return render(request, 'blog/addr_edit.html', {'form':form})
 
 
+@login_required
 def addr_edit(request, pk):
     addr = get_object_or_404(Address, pk=pk)
     if request.method == "POST":
@@ -44,13 +47,22 @@ def addr_edit(request, pk):
     return render(request, 'blog/addr_edit.html', {'form':form})
 
 
+@login_required
 def addr_remove(request, pk):
     addr = get_object_or_404(Address, pk=pk)
     addr.delete()
     return redirect('blog:addr_list')
 
 
+@login_required
 def addr_openaddr(request, pk):
     addr = get_object_or_404(Address, pk=pk)
     addr.openaddr()
+    return redirect('blog:addr_list')
+
+
+@login_required
+def addr_noopenaddr(request, pk):
+    addr = get_object_or_404(Address, pk=pk)
+    addr.noopenaddr()
     return redirect('blog:addr_list')

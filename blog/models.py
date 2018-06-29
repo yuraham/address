@@ -15,6 +15,10 @@ class Address(models.Model):
         self.open_addr = False
         self.save()
 
+    def noopenaddr(self):
+        self.open_addr = True
+        self.save()
+
     def __str__(self):
         return self.name
 
