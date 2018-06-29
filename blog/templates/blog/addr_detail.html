@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        <div class="date">
+            {{ addr.created_date }}
+        </div>
+        <h3>{{ addr.name }}</h3>
+        <p>연락처: {{ addr.numb }}</p>
+        {% if addr.numb_num %}
+            <p>연락처2: {{ addr.numb_num }}</p>
+        {% endif %}
+        {% if addr.email %}
+            <p>메일주소: {{ addr.email }}</p>
+        {% endif %}
+        <p>작성자: {{ addr.author }}</p>
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'blog:addr_edit' pk=addr.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        {% endif %}
+    </div>
+{% endblock %}

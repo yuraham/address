@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% for addr in addrs %}
+    <div class="post">
+        <div class="date">
+            {{ addr.created_date }}
+        </div>
+        <h1><a href="{% url 'blog:addr_detail' pk=addr.pk %}">{{ addr.name }}</a></h1>
+    </div>
+{% endfor %}
+{% endblock %}

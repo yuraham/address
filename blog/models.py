@@ -11,7 +11,7 @@ class Address(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     open_addr = models.BooleanField(default=False)
 
-    def addr(self):
+    def openaddr(self):
         self.open_addr = True
         self.save()
 
